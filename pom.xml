@@ -32,7 +32,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
 		</dependency>
-
+<!--		<dependency>-->
+<!--			<groupId>com.solace.spring.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-stream-solace</artifactId>-->
+<!--			<version>1.2.+</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
