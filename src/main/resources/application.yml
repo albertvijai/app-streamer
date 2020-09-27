@@ -1,0 +1,49 @@
+
+spring:
+  cloud:
+    function:
+      definition: Message
+    stream:
+      default-binder: local-solace
+      bindings:
+        emitAMessage-in-0:
+          destination: TEMPS.Q
+          group: PROCESSOR
+        emitAMessage-out-0:
+          destination: sensor/temperature/celsius
+      binders:
+        local-solace:
+          type: solace
+          environment:
+            solace:
+              java:
+                host: tcp://localhost:55555
+                msgVpn: default
+                clientUsername: admin
+                clientPassword: admin
+#                connectRetries: -1
+#                reconnectRetries: -1
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5673 #72 is taken in my local
+                username: guest
+                password: guest
+                virtual-host: /
+      solace:
+        bindings:
+          emitAMessage-in-0:
+            consumer:
+              queueAdditionalSubscriptions: sensor/temperature/fahrenheit
+
+logging:
+  level:
+    root: INFO
+    com.solacesystems.jcsmp: INFO
+    org.springframework: INFO
+
+server:
+  port: 8999
