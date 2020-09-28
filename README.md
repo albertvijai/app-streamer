@@ -3,6 +3,5 @@ A micro-service that exposes REST and SOCKET endpoints to receive messages from 
 handles communication with mutiple message broker middlewares like Solace, Rabbit & Kafka 
 
 ## Features 
-1. Connect multiple broker middleware to send and receive messages or events
-2. Create REST and SOCKET endpoints to receive events from client
-3. 
+1. Create REST and SOCKET endpoints to receive events from client
+2. Connect multiple broker middleware to manage message PUB/SUB
