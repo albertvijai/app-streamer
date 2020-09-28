@@ -4,13 +4,13 @@ spring:
     function:
       definition: Message
     stream:
-      default-binder: local-solace
+      default-binder: local_rabbit
       bindings:
-        emitAMessage-in-0:
+        emitSolaceMessage-in-0:
           destination: TEMPS.Q
           group: PROCESSOR
-        emitAMessage-out-0:
-          destination: sensor/temperature/celsius
+        emitSolaceMessage-out-0:
+          destination: SOLACE/OUT_Q
       binders:
         local-solace:
           type: solace
@@ -21,23 +21,32 @@ spring:
                 msgVpn: default
                 clientUsername: admin
                 clientPassword: admin
-#                connectRetries: -1
-#                reconnectRetries: -1
+                connectRetries: -1
+                reconnectRetries: -1
         local_rabbit:
           type: rabbit
           environment:
             spring:
               rabbitmq:
                 host: localhost
-                port: 5673 #72 is taken in my local
+                port: 5672
                 username: guest
                 password: guest
                 virtual-host: /
       solace:
         bindings:
-          emitAMessage-in-0:
+          emitSolaceMessage-in-0:
             consumer:
-              queueAdditionalSubscriptions: sensor/temperature/fahrenheit
+              queueAdditionalSubscriptions: SOLACE/IN_Q
+
+      rabbitmq:
+        bindings:
+          emitRabbitMessage-in-0:
+            consumer:
+              queueAdditionalSubscriptions: RABBIT_IN_Q
+          emitRabbitMessage-out-0:
+            consumer:
+              queueAdditionalSubscriptions: RABBIT_OUT_Q
 
 logging:
   level:

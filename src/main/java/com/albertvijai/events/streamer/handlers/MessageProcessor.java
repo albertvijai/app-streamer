@@ -18,20 +18,22 @@ import java.util.function.Function;
 @EnableBinding(value = { Message.class})
 public interface MessageProcessor extends Source, Sink {
 
-    static final Logger log = LoggerFactory.getLogger(MessageProcessor.class);
-
-//    @Input("DEMO_INBOX")
-//    SubscribableChannel in();
-//
-//    @Output("SOLACE_MSG_QUEUE")
-//    MessageChannel out();
+    Logger log = LoggerFactory.getLogger(MessageProcessor.class);
 
     @Bean
-    default public Function<Message, Message> emitAMessage() {
+    default public Function<Message, Message> emitSolaceMessage() {
        return message -> {
-           System.out.println("Receiving message from space !! ");
+           System.out.println("Receiving message from splace space !! ");
            return new Message();
        };
+    }
+
+    @Bean
+    default public Function<Message, Message> emitRabbitMessage() {
+        return message -> {
+            System.out.println("Receiving message from rabbit space !! ");
+            return new Message();
+        };
     }
 
 }
